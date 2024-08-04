@@ -1,0 +1,7 @@
+numpy
+scipy
+pyaudio
+Flask
+flask_cors
+pyfluidsynth
+music21

@@ -1,0 +1,267 @@
+{
+    "c": {
+        "name": "C major",
+        "num_variations": 3,
+        "variations": {
+          "1": {
+            "notes": ["C3", "E3", "G3", "C4", "E4"],
+            "positions": [
+              { "string": 1, "fret": 0, "finger": 0 },
+              { "string": 2, "fret": 1, "finger": 1 },
+              { "string": 3, "fret": 0, "finger": 0 },
+              { "string": 4, "fret": 2, "finger": 2 },
+              { "string": 5, "fret": 3, "finger": 3 }
+            ], 
+            "bar": { "hasBar": false, "top": 0, "bottom": 0, "fret": 0}
+          },
+          "2": {
+            "notes": ["C3", "G3", "C4", "E4", "G4", "C5"],
+            "positions": [
+              { "string": 1, "fret": 8, "finger": 1 },
+              { "string": 2, "fret": 8, "finger": 1 },
+              { "string": 3, "fret": 9, "finger": 2 },
+              { "string": 4, "fret": 10, "finger": 4 },
+              { "string": 5, "fret": 10, "finger": 3 },
+              { "string": 6, "fret": 8, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 6, "fret": 8}
+          }, 
+          "3": {
+            "notes": ["C3", "G3", "C4", "E4", "G4"],
+          "positions": [
+            { "string": 1, "fret": 3, "finger": 1 },
+            { "string": 2, "fret": 5, "finger": 4 },
+            { "string": 3, "fret": 5, "finger": 3 },
+            { "string": 4, "fret": 5, "finger": 2 },
+            { "string": 5, "fret": 3, "finger": 1 }
+          ], 
+          "bar": { "hasBar": true, "top": 1, "bottom": 5, "fret": 3}
+          }
+        }
+      },
+
+      "c_sharp": {
+        "name": "C♯ major",
+        "num_variations": 3,
+        "variations": {
+          "1": {
+            "notes": ["C♯3", "F3", "G♯3", "C♯4", "F4"],
+            "positions": [
+              { "string": 1, "fret": 1, "finger": 1 },
+              { "string": 2, "fret": 2, "finger": 2 },
+              { "string": 3, "fret": 1, "finger": 1 },
+              { "string": 4, "fret": 3, "finger": 3 },
+              { "string": 5, "fret": 4, "finger": 4 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 3, "fret": 1}
+          },
+          "2": {
+            "notes": ["C♯3", "G♯3", "C♯4", "F4", "G♯4", "C♯5"],
+            "positions": [
+              { "string": 1, "fret": 9, "finger": 1 },
+              { "string": 2, "fret": 9, "finger": 1 },
+              { "string": 3, "fret": 10, "finger": 2 },
+              { "string": 4, "fret": 11, "finger": 4 },
+              { "string": 5, "fret": 11, "finger": 3 },
+              { "string": 6, "fret": 9, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 6, "fret": 9}
+          }, 
+          "3": {
+            "notes": ["C♯3", "G♯3", "C♯4", "F4", "G♯4"],
+            "positions": [
+              { "string": 1, "fret": 4, "finger": 1 },
+              { "string": 2, "fret": 6, "finger": 4 },
+              { "string": 3, "fret": 6, "finger": 3 },
+              { "string": 4, "fret": 6, "finger": 2 },
+              { "string": 5, "fret": 4, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 5, "fret": 4}
+          }
+        }
+      },
+
+      "d": {
+        "name": "D major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["D3", "A3", "D4", "F♯4"],
+            "positions": [
+              { "string": 1, "fret": 2, "finger": 2 },
+              { "string": 2, "fret": 3, "finger": 3 },
+              { "string": 3, "fret": 2, "finger": 1 },
+              { "string": 4, "fret": 0, "finger": 0 }
+            ], 
+            "bar": { "hasBar": false, "top": 0, "bottom": 0, "fret": 0}
+          }
+        }
+      },
+
+      "d_sharp": {
+        "name": "D♯ major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["D♯3", "A♯3", "D♯4", "G4"],
+            "positions": [
+              { "string": 1, "fret": 3, "finger": 3 },
+              { "string": 2, "fret": 4, "finger": 4 },
+              { "string": 3, "fret": 3, "finger": 2 },
+              { "string": 4, "fret": 1, "finger": 1 }
+            ], 
+            "bar": { "hasBar": false, "top": 0, "bottom": 0, "fret": 0}
+          }
+        }
+      },
+
+      "e": {
+        "name": "E major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["E2", "B2", "E3", "G♯3", "B3", "E4"],
+            "positions": [
+              { "string": 1, "fret": 0, "finger": 0 },
+              { "string": 2, "fret": 0, "finger": 0 },
+              { "string": 3, "fret": 1, "finger": 1 },
+              { "string": 4, "fret": 2, "finger": 3 },
+              { "string": 5, "fret": 2, "finger": 2 },
+              { "string": 6, "fret": 0, "finger": 0 }
+            ], 
+            "bar": { "hasBar": false, "top": 0, "bottom": 0, "fret": 0}
+          }
+        }
+      },
+
+      "f": {
+        "name": "F major",
+        "num_variations": 1,
+        "variations": { 
+          "1": {
+            "notes": ["F2", "C3", "F3", "A3", "C4", "F4"],
+            "positions": [
+              { "string": 1, "fret": 1, "finger": 1 },
+              { "string": 2, "fret": 1, "finger": 1 },
+              { "string": 3, "fret": 2, "finger": 2 },
+              { "string": 4, "fret": 3, "finger": 4 },
+              { "string": 5, "fret": 3, "finger": 3 },
+              { "string": 6, "fret": 1, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 6, "fret": 1}
+          }
+        }
+      },
+
+      "f_sharp": {
+        "name": "F♯ major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["F♯2", "C♯3", "F♯3", "A♯3", "C♯4", "F♯4"],
+            "positions": [
+              { "string": 1, "fret": 2, "finger": 1 },
+              { "string": 2, "fret": 2, "finger": 1 },
+              { "string": 3, "fret": 3, "finger": 2 },
+              { "string": 4, "fret": 4, "finger": 4 },
+              { "string": 5, "fret": 4, "finger": 3 },
+              { "string": 6, "fret": 2, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 6, "fret": 2}
+          }
+        }
+      },
+
+      "g": {
+        "name": "G major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["G2", "B2", "D3", "G3", "B3", "G4"],
+            "positions": [
+              { "string": 1, "fret": 3, "finger": 4 },
+              { "string": 2, "fret": 0, "finger": 0 },
+              { "string": 3, "fret": 0, "finger": 0 },
+              { "string": 4, "fret": 0, "finger": 0 },
+              { "string": 5, "fret": 2, "finger": 1 },
+              { "string": 6, "fret": 3, "finger": 2 }
+            ],
+            "bar": { "hasBar": false, "top": 0, "bottom": 0, "fret": 0}
+          }
+        }
+      },
+
+      "g_sharp": {
+        "name": "G♯ major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["G♯2", "D♯3", "G♯3", "C4", "D♯4", "G♯4"],
+            "positions": [
+              { "string": 1, "fret": 4, "finger": 1 },
+              { "string": 2, "fret": 4, "finger": 1 },
+              { "string": 3, "fret": 5, "finger": 2 },
+              { "string": 4, "fret": 6, "finger": 4 },
+              { "string": 5, "fret": 6, "finger": 3 },
+              { "string": 6, "fret": 4, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 6, "fret": 4}
+          }
+        }
+      },
+
+      "a": {
+        "name": "A major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["A2", "E3", "A3", "C♯4", "E4"],
+            "positions": [
+              { "string": 1, "fret": 0, "finger": 0 },
+              { "string": 2, "fret": 2, "finger": 3 },
+              { "string": 3, "fret": 2, "finger": 2 },
+              { "string": 4, "fret": 2, "finger": 1 },
+              { "string": 5, "fret": 0, "finger": 0 }
+            ], 
+            "bar": { "hasBar": false, "top": 0, "bottom": 0, "fret": 0}
+          }
+        }
+      },
+
+      "a_sharp": {
+        "name": "A♯ major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["A♯2", "F3", "A♯3", "D4", "F4"],
+            "positions": [
+              { "string": 1, "fret": 1, "finger": 1 },
+              { "string": 2, "fret": 3, "finger": 4 },
+              { "string": 3, "fret": 3, "finger": 3 },
+              { "string": 4, "fret": 3, "finger": 2 },
+              { "string": 5, "fret": 1, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 5, "fret": 1}
+          }
+        }
+      },
+
+      "b": {
+        "name": "B major",
+        "num_variations": 1,
+        "variations": {
+          "1": {
+            "notes": ["B2", "F♯3", "B3", "D♯4", "F♯4"],
+            "positions": [
+              { "string": 1, "fret": 2, "finger": 1 },
+              { "string": 2, "fret": 4, "finger": 4 },
+              { "string": 3, "fret": 4, "finger": 3 },
+              { "string": 4, "fret": 4, "finger": 2 },
+              { "string": 5, "fret": 2, "finger": 1 }
+            ], 
+            "bar": { "hasBar": true, "top": 1, "bottom": 5, "fret": 2}
+          }
+        }
+      }
+  }
+  
