@@ -1,0 +1,60 @@
+[project]
+name = "guitarista-api"
+version = "0.1.0"
+description = "Guitarista backend: song→tab pipeline, fretting solver, score import"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.116",
+    "uvicorn[standard]>=0.35",
+    "pydantic>=2.11",
+    "pydantic-settings>=2.10",
+    "sqlalchemy[asyncio]>=2.0.41",
+    "aiosqlite>=0.21",
+    "alembic>=1.16",
+    "httpx>=0.28",
+    "sse-starlette>=2.3",
+    "python-multipart>=0.0.20",
+    "selectolax>=0.3.29",
+    "rapidfuzz>=3.13",
+    "music21>=9.7",
+    "structlog>=25",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4",
+    "pytest-asyncio>=1.0",
+    "respx>=0.22",
+    "hypothesis>=6.135",
+    "ruff>=0.12",
+    "mypy>=1.17",
+    "freezegun>=1.5",
+]
+
+[project.scripts]
+guitarista-api = "guitarista_api.main:run"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "ml: requires the real ML sidecar",
+    "musescore: requires a real MuseScore binary on the host",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]

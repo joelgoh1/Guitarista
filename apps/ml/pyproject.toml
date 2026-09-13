@@ -1,0 +1,41 @@
+[project]
+name = "guitarista-ml"
+version = "0.1.0"
+description = "Guitarista ML sidecar: audio separation (Demucs) and transcription (basic-pitch) as a JSON CLI"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "basic-pitch[coreml]>=0.4.0",
+    "librosa>=0.10",
+    "soundfile>=0.12",
+    "numpy<2",
+    "pretty_midi>=0.2.10",
+    "setuptools>=69,<81",
+    "onnxruntime>=1.17",
+]
+
+[project.optional-dependencies]
+separate = [
+    "demucs>=4.0",
+    "torch>=2.1",
+    "torchaudio>=2.1",
+]
+onnx = ["onnxruntime>=1.17"]
+train = [
+    "onnx>=1.15,<1.18",
+    "torch>=2.1",
+    "torchaudio>=2.1",
+    "tqdm>=4.66",
+]
+
+[project.scripts]
+guitarista-ml = "guitarista_ml.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

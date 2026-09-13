@@ -1,0 +1,396 @@
+{
+  "$defs": {
+    "Beat": {
+      "properties": {
+        "duration": {
+          "$ref": "#/$defs/Duration"
+        },
+        "notes": {
+          "items": {
+            "$ref": "#/$defs/Note"
+          },
+          "title": "Notes",
+          "type": "array"
+        },
+        "chord_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chord Name"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Text"
+        },
+        "tempo_bpm": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tempo Bpm"
+        }
+      },
+      "title": "Beat",
+      "type": "object"
+    },
+    "Duration": {
+      "description": "Note value as a fraction of a whole note, e.g. num=1, den=4 is a quarter.",
+      "properties": {
+        "num": {
+          "default": 1,
+          "title": "Num",
+          "type": "integer"
+        },
+        "den": {
+          "default": 4,
+          "title": "Den",
+          "type": "integer"
+        },
+        "dots": {
+          "default": 0,
+          "title": "Dots",
+          "type": "integer"
+        },
+        "tuplet": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tuplet"
+        }
+      },
+      "title": "Duration",
+      "type": "object"
+    },
+    "Measure": {
+      "properties": {
+        "number": {
+          "minimum": 1,
+          "title": "Number",
+          "type": "integer"
+        },
+        "time_signature": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimeSignature"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "voices": {
+          "items": {
+            "$ref": "#/$defs/Voice"
+          },
+          "title": "Voices",
+          "type": "array"
+        },
+        "marker": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Marker"
+        },
+        "repeat_start": {
+          "default": false,
+          "title": "Repeat Start",
+          "type": "boolean"
+        },
+        "repeat_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Repeat End"
+        }
+      },
+      "required": [
+        "number"
+      ],
+      "title": "Measure",
+      "type": "object"
+    },
+    "Note": {
+      "properties": {
+        "string": {
+          "description": "1 = highest-pitched string",
+          "minimum": 1,
+          "title": "String",
+          "type": "integer"
+        },
+        "fret": {
+          "maximum": 30,
+          "minimum": 0,
+          "title": "Fret",
+          "type": "integer"
+        },
+        "pitch_midi": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pitch Midi"
+        },
+        "tie": {
+          "default": false,
+          "title": "Tie",
+          "type": "boolean"
+        },
+        "dead": {
+          "default": false,
+          "title": "Dead",
+          "type": "boolean"
+        },
+        "ghost": {
+          "default": false,
+          "title": "Ghost",
+          "type": "boolean"
+        },
+        "tech": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tech",
+          "type": "array"
+        },
+        "finger": {
+          "anyOf": [
+            {
+              "maximum": 4,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "0 thumb, 1 index .. 4 pinky",
+          "title": "Finger"
+        }
+      },
+      "required": [
+        "string",
+        "fret"
+      ],
+      "title": "Note",
+      "type": "object"
+    },
+    "TabSourceKind": {
+      "enum": [
+        "songsterr",
+        "ultimate_guitar",
+        "audio",
+        "score",
+        "manual"
+      ],
+      "title": "TabSourceKind",
+      "type": "string"
+    },
+    "TimeSignature": {
+      "properties": {
+        "numerator": {
+          "default": 4,
+          "title": "Numerator",
+          "type": "integer"
+        },
+        "denominator": {
+          "default": 4,
+          "title": "Denominator",
+          "type": "integer"
+        }
+      },
+      "title": "TimeSignature",
+      "type": "object"
+    },
+    "Track": {
+      "properties": {
+        "name": {
+          "default": "Guitar",
+          "title": "Name",
+          "type": "string"
+        },
+        "instrument": {
+          "default": "acoustic_guitar_steel",
+          "title": "Instrument",
+          "type": "string"
+        },
+        "tuning": {
+          "description": "MIDI pitch of open strings, string 1..N (highest first)",
+          "items": {
+            "type": "integer"
+          },
+          "title": "Tuning",
+          "type": "array"
+        },
+        "capo": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Capo",
+          "type": "integer"
+        },
+        "measures": {
+          "items": {
+            "$ref": "#/$defs/Measure"
+          },
+          "title": "Measures",
+          "type": "array"
+        }
+      },
+      "title": "Track",
+      "type": "object"
+    },
+    "Voice": {
+      "properties": {
+        "beats": {
+          "items": {
+            "$ref": "#/$defs/Beat"
+          },
+          "title": "Beats",
+          "type": "array"
+        }
+      },
+      "title": "Voice",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "song_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Song Id"
+    },
+    "title": {
+      "default": "Untitled",
+      "title": "Title",
+      "type": "string"
+    },
+    "artist": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Artist"
+    },
+    "source": {
+      "$ref": "#/$defs/TabSourceKind",
+      "default": "manual"
+    },
+    "source_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Ref"
+    },
+    "confidence": {
+      "default": 1.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "tempo_bpm": {
+      "default": 120.0,
+      "title": "Tempo Bpm",
+      "type": "number"
+    },
+    "time_signature": {
+      "$ref": "#/$defs/TimeSignature"
+    },
+    "tracks": {
+      "items": {
+        "$ref": "#/$defs/Track"
+      },
+      "title": "Tracks",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "title": "Tab",
+  "type": "object"
+}
