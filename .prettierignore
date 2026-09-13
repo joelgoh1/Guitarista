@@ -1,0 +1,10 @@
+node_modules
+.next
+.turbo
+dist
+apps/api
+apps/ml
+packages/api-types/src/schema.d.ts
+pnpm-lock.yaml
+frontend
+backend

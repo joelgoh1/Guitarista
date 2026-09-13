@@ -1,0 +1,4 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": { "lib": ["es2022", "dom"], "declaration": true, "noEmit": true }
+}
