@@ -1,31 +1,37 @@
-# Logs
-logs
+# node
+node_modules/
+.next/
+.turbo/
+dist/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+.pnpm-store/
+apps/web/public/alphatab/
+apps/web/test-results/
+apps/web/playwright-report/
+coverage/
 
-frontend/node_modules
-frontend/dist
-frontend/dist-ssr
-frontend/*.local
-frontend/.cache/
-frontend/build/
-frontend/.env
+# python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+apps/api/data/*
+!apps/api/data/.gitkeep
+apps/ml/data/
+apps/ml/runs/
+*.sqlite
+*.db
 
-backend/__pycache__/
-backend/*,_pycache_backend/venv/
-backend/.env
+# env
+.env
+.env.local
+.env.*.local
 
-# Editor directories and files
+# editors/os
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
