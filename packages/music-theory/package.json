@@ -1,0 +1,10 @@
+{
+  "name": "@guitarista/music-theory",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run", "lint": "eslint src" },
+  "dependencies": { "zod": "^4.1.0" },
+  "devDependencies": { "@guitarista/config": "workspace:*", "typescript": "~5.9.0", "vitest": "^3.2.0" }
+}

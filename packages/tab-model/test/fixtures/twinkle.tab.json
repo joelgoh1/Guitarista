@@ -1,0 +1,53 @@
+{
+  "id": "tab_twinkle_fixture",
+  "song_id": null,
+  "title": "Twinkle Twinkle Little Star",
+  "artist": "Traditional",
+  "source": "manual",
+  "source_ref": null,
+  "confidence": 1.0,
+  "tempo_bpm": 100,
+  "time_signature": { "numerator": 4, "denominator": 4 },
+  "tracks": [
+    {
+      "name": "Acoustic Guitar",
+      "instrument": "acoustic_guitar_steel",
+      "tuning": [64, 59, 55, 50, 45, 40],
+      "capo": 0,
+      "measures": [
+        {
+          "number": 1,
+          "time_signature": { "numerator": 4, "denominator": 4 },
+          "marker": "Intro",
+          "repeat_start": false,
+          "repeat_end": null,
+          "voices": [
+            {
+              "beats": [
+                { "duration": { "num": 1, "den": 4 }, "notes": [{ "string": 2, "fret": 1, "pitch_midi": 60, "tie": false, "dead": false, "ghost": false, "tech": [], "finger": 1 }], "chord_name": "C" },
+                { "duration": { "num": 1, "den": 4 }, "notes": [{ "string": 2, "fret": 1, "tie": false, "dead": false, "ghost": false, "tech": [], "finger": 1 }] },
+                { "duration": { "num": 1, "den": 4 }, "notes": [{ "string": 1, "fret": 3, "tie": false, "dead": false, "ghost": false, "tech": [], "finger": 3 }] },
+                { "duration": { "num": 1, "den": 4 }, "notes": [{ "string": 1, "fret": 3, "tie": false, "dead": false, "ghost": false, "tech": [], "finger": 3 }] }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "voices": [
+            {
+              "beats": [
+                { "duration": { "num": 1, "den": 4 }, "notes": [{ "string": 1, "fret": 5, "tie": false, "dead": false, "ghost": false, "tech": ["hammer"], "finger": null }] },
+                { "duration": { "num": 1, "den": 4 }, "notes": [{ "string": 1, "fret": 5, "tie": false, "dead": false, "ghost": false, "tech": [] }] },
+                { "duration": { "num": 1, "den": 2, "dots": 0, "tuplet": null }, "notes": [{ "string": 1, "fret": 3, "tie": false, "dead": false, "ghost": false, "tech": [] }], "text": "hold" }
+              ]
+            }
+          ],
+          "repeat_start": false
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "created_at": "2026-09-11T00:00:00Z"
+}

@@ -1,0 +1,1 @@
+{ "extends": "@guitarista/config/tsconfig/library.json", "include": ["src", "test"] }

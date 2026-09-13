@@ -1,0 +1,2763 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Guitarista API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/uploads/score": {
+      "post": {
+        "tags": [
+          "uploads"
+        ],
+        "summary": "Upload Score",
+        "operationId": "upload_score_api_v1_uploads_score_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_score_api_v1_uploads_score_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScoreUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/uploads/audio": {
+      "post": {
+        "tags": [
+          "uploads"
+        ],
+        "summary": "Upload Audio",
+        "description": "Upload a recording (mp3/wav/m4a/flac/ogg, <= 50 MB) for the audio tier; pass the returned\n``upload_id`` in ``POST /jobs``.",
+        "operationId": "upload_audio_api_v1_uploads_audio_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_audio_api_v1_uploads_audio_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/score/tab": {
+      "post": {
+        "tags": [
+          "score"
+        ],
+        "summary": "Score To Tab",
+        "operationId": "score_to_tab_api_v1_score_tab_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScoreTabRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tab"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/songs/resolve": {
+      "post": {
+        "tags": [
+          "songs"
+        ],
+        "summary": "Resolve Song",
+        "description": "Resolve a link / typed text / title+artist into a Song (Spotify when configured).",
+        "operationId": "resolve_song_api_v1_songs_resolve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SongQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Song"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/songs/search": {
+      "get": {
+        "tags": [
+          "songs"
+        ],
+        "summary": "Search Songs",
+        "description": "Autocomplete via Spotify. Without credentials returns ``[]`` with ``X-Spotify: disabled``.",
+        "operationId": "search_songs_api_v1_songs_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 20,
+              "minimum": 1,
+              "default": 8,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Song"
+                  },
+                  "title": "Response Search Songs Api V1 Songs Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/songs/{song_id}/candidates": {
+      "post": {
+        "tags": [
+          "songs"
+        ],
+        "summary": "Song Candidates",
+        "description": "Browse every source's ranked candidates for a resolved song without starting a job.\n\nSongsterr matches first (best score first), then Ultimate Guitar Tabs/Chords, then the single\n``audio`` pseudo-candidate. ``tab_id`` is filled when a job already fetched that candidate.\nPass a candidate to ``POST /jobs`` as ``candidate`` to fetch exactly it, or list the ones\nalready tried in ``exclude``.",
+        "operationId": "song_candidates_api_v1_songs__song_id__candidates_post",
+        "parameters": [
+          {
+            "name": "song_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Song Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/CandidatesRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidatesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs": {
+      "post": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Create Job",
+        "description": "Start a song\u2192tab job. Poll ``GET /jobs/{id}`` or stream ``GET /jobs/{id}/events``.",
+        "operationId": "create_job_api_v1_jobs_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TabRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "List Jobs",
+        "operationId": "list_jobs_api_v1_jobs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "done",
+                    "failed",
+                    "cancelled",
+                    "interrupted"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  },
+                  "title": "Response List Jobs Api V1 Jobs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Get Job",
+        "operationId": "get_job_api_v1_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs/{job_id}/cancel": {
+      "post": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Cancel Job",
+        "operationId": "cancel_job_api_v1_jobs__job_id__cancel_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs/{job_id}/events": {
+      "get": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Job Events",
+        "description": "Server-sent events: replays the tier log, then streams ``tier``/``progress``/``done``/\n``error`` events; a final ``end`` event closes the stream. Data is JSON (see ``JobEvent``).",
+        "operationId": "job_events_api_v1_jobs__job_id__events_get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SSE stream",
+            "content": {
+              "text/event-stream": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tabs": {
+      "get": {
+        "tags": [
+          "tabs"
+        ],
+        "summary": "List Tabs",
+        "operationId": "list_tabs_api_v1_tabs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "song_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Only tabs for this song",
+              "title": "Song Id"
+            },
+            "description": "Only tabs for this song"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TabSummary"
+                  },
+                  "title": "Response List Tabs Api V1 Tabs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tabs/{tab_id}": {
+      "get": {
+        "tags": [
+          "tabs"
+        ],
+        "summary": "Get Tab",
+        "operationId": "get_tab_api_v1_tabs__tab_id__get",
+        "parameters": [
+          {
+            "name": "tab_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tab Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "json",
+                "alphatex",
+                "musicxml",
+                "ascii"
+              ],
+              "type": "string",
+              "default": "json",
+              "title": "Format"
+            }
+          },
+          {
+            "name": "track",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Track"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tab"
+                }
+              },
+              "text/x-alphatex": {},
+              "text/plain": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/spotify/login": {
+      "get": {
+        "tags": [
+          "spotify"
+        ],
+        "summary": "Spotify Login",
+        "description": "Build the PKCE authorize URL; the client navigates to it.",
+        "operationId": "spotify_login_api_v1_spotify_login_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/spotify/status": {
+      "get": {
+        "tags": [
+          "spotify"
+        ],
+        "summary": "Spotify Status",
+        "operationId": "spotify_status_api_v1_spotify_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpotifyStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/spotify/auth": {
+      "delete": {
+        "tags": [
+          "spotify"
+        ],
+        "summary": "Spotify Disconnect",
+        "description": "Forget the grant and stop any background prefetching.",
+        "operationId": "spotify_disconnect_api_v1_spotify_auth_delete",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/api/v1/recommendations": {
+      "get": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "List Recommendations",
+        "description": "The listening pool, best score first, without dismissed or unplayable entries.",
+        "operationId": "list_recommendations_api_v1_recommendations_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 24,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PoolEntry"
+                  },
+                  "title": "Response List Recommendations Api V1 Recommendations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recommendations/refresh": {
+      "post": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Refresh Recommendations",
+        "description": "Rebuild the pool from Spotify right now (ignores the refresh interval).",
+        "operationId": "refresh_recommendations_api_v1_recommendations_refresh_post",
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PoolSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recommendations/{spotify_id}/dismiss": {
+      "post": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Dismiss Recommendation",
+        "description": "Hide one entry for good; a later refresh will not bring it back.",
+        "operationId": "dismiss_recommendation_api_v1_recommendations__spotify_id__dismiss_post",
+        "parameters": [
+          {
+            "name": "spotify_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Spotify Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recommendations/surprise": {
+      "get": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Surprise",
+        "description": "A score-weighted random ready tab; failing that, the best entry still to generate.",
+        "operationId": "surprise_api_v1_recommendations_surprise_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurprisePick"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AudioUploadResponse": {
+        "properties": {
+          "upload_id": {
+            "type": "string",
+            "title": "Upload Id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "duration_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration S"
+          },
+          "sample_rate": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sample Rate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_id",
+          "filename"
+        ],
+        "title": "AudioUploadResponse"
+      },
+      "Beat": {
+        "properties": {
+          "duration": {
+            "$ref": "#/components/schemas/Duration"
+          },
+          "notes": {
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "chord_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chord Name"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "tempo_bpm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tempo Bpm"
+          }
+        },
+        "type": "object",
+        "title": "Beat"
+      },
+      "Body_upload_audio_api_v1_uploads_audio_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_audio_api_v1_uploads_audio_post"
+      },
+      "Body_upload_score_api_v1_uploads_score_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_score_api_v1_uploads_score_post"
+      },
+      "Candidate": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": [
+              "songsterr",
+              "ultimate_guitar",
+              "audio"
+            ],
+            "title": "Source"
+          },
+          "external_id": {
+            "type": "string",
+            "title": "External Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "artist": {
+            "type": "string",
+            "title": "Artist"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "description": "Match score against the resolved song"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind",
+            "description": "\"Tabs\" / \"Chords\" for UG; track-type summary for Songsterr"
+          },
+          "rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rating"
+          },
+          "votes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Votes"
+          },
+          "track_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Track Count"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "tab_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tab Id",
+            "description": "An already fetched tab for this candidate and song, if any"
+          },
+          "available": {
+            "type": "boolean",
+            "title": "Available",
+            "default": true
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason",
+            "description": "Why the candidate is unavailable"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "external_id",
+          "title",
+          "artist",
+          "score"
+        ],
+        "title": "Candidate"
+      },
+      "CandidateRef": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": [
+              "songsterr",
+              "ultimate_guitar",
+              "audio"
+            ],
+            "title": "Source"
+          },
+          "external_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "External Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "external_id"
+        ],
+        "title": "CandidateRef",
+        "description": "Points at one browsable candidate: a Songsterr ``songId``, a UG tab id, or ``\"audio\"``."
+      },
+      "CandidatesRequest": {
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "description": "Max candidates per source",
+            "default": 10
+          }
+        },
+        "type": "object",
+        "title": "CandidatesRequest"
+      },
+      "CandidatesResponse": {
+        "properties": {
+          "song_id": {
+            "type": "string",
+            "title": "Song Id"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/Candidate"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings",
+            "description": "Sources that failed or were disabled"
+          }
+        },
+        "type": "object",
+        "required": [
+          "song_id",
+          "candidates"
+        ],
+        "title": "CandidatesResponse"
+      },
+      "Duration": {
+        "properties": {
+          "num": {
+            "type": "integer",
+            "title": "Num",
+            "default": 1
+          },
+          "den": {
+            "type": "integer",
+            "title": "Den",
+            "default": 4
+          },
+          "dots": {
+            "type": "integer",
+            "title": "Dots",
+            "default": 0
+          },
+          "tuplet": {
+            "anyOf": [
+              {
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tuplet"
+          }
+        },
+        "type": "object",
+        "title": "Duration",
+        "description": "Note value as a fraction of a whole note, e.g. num=1, den=4 is a quarter."
+      },
+      "Evidence": {
+        "properties": {
+          "top_short": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Top Short",
+            "description": "Rank in top tracks, last 4 weeks"
+          },
+          "top_medium": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Top Medium",
+            "description": "Rank in top tracks, last 6 months"
+          },
+          "top_long": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Top Long",
+            "description": "Rank in top tracks, all time"
+          },
+          "recent": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Recent",
+            "description": "Plays in the recently-played window",
+            "default": 0
+          },
+          "liked": {
+            "type": "boolean",
+            "title": "Liked",
+            "description": "Present in the user's saved tracks",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "Evidence",
+        "description": "Where a track showed up in the user's history (ranks are 0-based, best first)."
+      },
+      "Features": {
+        "properties": {
+          "spotify": {
+            "type": "boolean",
+            "title": "Spotify"
+          },
+          "spotify_user": {
+            "type": "boolean",
+            "title": "Spotify User",
+            "description": "Spotify client id configured, so PKCE login is possible",
+            "default": false
+          },
+          "spotify_connected": {
+            "type": "boolean",
+            "title": "Spotify Connected",
+            "description": "A Spotify user grant is stored (noodle mode can read history)",
+            "default": false
+          },
+          "llm": {
+            "type": "boolean",
+            "title": "Llm"
+          },
+          "songsterr": {
+            "type": "boolean",
+            "title": "Songsterr"
+          },
+          "ug": {
+            "type": "boolean",
+            "title": "Ug"
+          },
+          "audio": {
+            "type": "boolean",
+            "title": "Audio"
+          },
+          "ytdlp": {
+            "type": "boolean",
+            "title": "Ytdlp"
+          },
+          "separation": {
+            "type": "boolean",
+            "title": "Separation"
+          },
+          "ml_sidecar_ok": {
+            "type": "boolean",
+            "title": "Ml Sidecar Ok",
+            "description": "guitarista-ml sidecar responds to `probe` with basic-pitch",
+            "default": false
+          },
+          "separation_available": {
+            "type": "boolean",
+            "title": "Separation Available",
+            "description": "Demucs installed in the sidecar (uv sync --extra separate)",
+            "default": false
+          },
+          "tabcnn_available": {
+            "type": "boolean",
+            "title": "Tabcnn Available",
+            "description": "TabCNN ONNX weights present in the sidecar (string/fret transcription)",
+            "default": false
+          },
+          "audio_model": {
+            "type": "string",
+            "title": "Audio Model",
+            "description": "Transcriber the audio tier uses",
+            "default": "basic-pitch"
+          },
+          "jobs": {
+            "type": "boolean",
+            "title": "Jobs",
+            "description": "POST /jobs + SSE job pipeline available",
+            "default": true
+          },
+          "musescore": {
+            "type": "boolean",
+            "title": "Musescore",
+            "description": "MuseScore binary found; enables .mscz / Guitar Pro / Capella score uploads",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "spotify",
+          "llm",
+          "songsterr",
+          "ug",
+          "audio",
+          "ytdlp",
+          "separation"
+        ],
+        "title": "Features"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "features": {
+            "$ref": "#/components/schemas/Features"
+          },
+          "ffmpeg": {
+            "type": "boolean",
+            "title": "Ffmpeg"
+          },
+          "ytdlp": {
+            "type": "boolean",
+            "title": "Ytdlp",
+            "description": "yt-dlp binary found on PATH",
+            "default": false
+          },
+          "tiers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tiers",
+            "description": "Tab sources in fallback order"
+          },
+          "running_jobs": {
+            "type": "integer",
+            "title": "Running Jobs",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "version",
+          "features",
+          "ffmpeg"
+        ],
+        "title": "Health"
+      },
+      "Job": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "done",
+              "failed",
+              "cancelled",
+              "interrupted"
+            ],
+            "title": "Status",
+            "default": "queued"
+          },
+          "request": {
+            "$ref": "#/components/schemas/TabRequest"
+          },
+          "song_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Song Id"
+          },
+          "tab_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tab Id"
+          },
+          "tiers": {
+            "items": {
+              "$ref": "#/components/schemas/TierLogEntry"
+            },
+            "type": "array",
+            "title": "Tiers"
+          },
+          "progress": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Progress",
+            "default": 0.0
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request"
+        ],
+        "title": "Job"
+      },
+      "LoginResponse": {
+        "properties": {
+          "authorize_url": {
+            "type": "string",
+            "title": "Authorize Url",
+            "description": "Send the browser here to grant access"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Scopes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "authorize_url"
+        ],
+        "title": "LoginResponse"
+      },
+      "Measure": {
+        "properties": {
+          "number": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Number"
+          },
+          "time_signature": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TimeSignature"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "voices": {
+            "items": {
+              "$ref": "#/components/schemas/Voice"
+            },
+            "type": "array",
+            "title": "Voices"
+          },
+          "marker": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marker"
+          },
+          "repeat_start": {
+            "type": "boolean",
+            "title": "Repeat Start",
+            "default": false
+          },
+          "repeat_end": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repeat End"
+          }
+        },
+        "type": "object",
+        "required": [
+          "number"
+        ],
+        "title": "Measure"
+      },
+      "Note": {
+        "properties": {
+          "string": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "String",
+            "description": "1 = highest-pitched string"
+          },
+          "fret": {
+            "type": "integer",
+            "maximum": 30.0,
+            "minimum": 0.0,
+            "title": "Fret"
+          },
+          "pitch_midi": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pitch Midi"
+          },
+          "tie": {
+            "type": "boolean",
+            "title": "Tie",
+            "default": false
+          },
+          "dead": {
+            "type": "boolean",
+            "title": "Dead",
+            "default": false
+          },
+          "ghost": {
+            "type": "boolean",
+            "title": "Ghost",
+            "default": false
+          },
+          "tech": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tech"
+          },
+          "finger": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 4.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finger",
+            "description": "0 thumb, 1 index .. 4 pinky"
+          }
+        },
+        "type": "object",
+        "required": [
+          "string",
+          "fret"
+        ],
+        "title": "Note"
+      },
+      "PoolEntry": {
+        "properties": {
+          "spotify_id": {
+            "type": "string",
+            "title": "Spotify Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "artist": {
+            "type": "string",
+            "title": "Artist"
+          },
+          "album": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Album"
+          },
+          "artwork_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artwork Url"
+          },
+          "duration_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Ms"
+          },
+          "evidence": {
+            "$ref": "#/components/schemas/Evidence"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "default": 0.0
+          },
+          "availability": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "available",
+              "unavailable"
+            ],
+            "title": "Availability",
+            "default": "unknown"
+          },
+          "candidate": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Candidate"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Songsterr candidate a prefetch job can target directly"
+          },
+          "song_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Song Id"
+          },
+          "tab_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tab Id"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "checking",
+              "queued",
+              "ready",
+              "failed",
+              "dismissed"
+            ],
+            "title": "Status",
+            "default": "new"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts",
+            "default": 0
+          },
+          "refreshed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refreshed At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "spotify_id",
+          "title",
+          "artist"
+        ],
+        "title": "PoolEntry",
+        "description": "One candidate song for noodling, as stored in ``listening_pool``."
+      },
+      "PoolSummary": {
+        "properties": {
+          "fetched": {
+            "type": "integer",
+            "title": "Fetched",
+            "description": "Distinct tracks seen across all endpoints",
+            "default": 0
+          },
+          "new": {
+            "type": "integer",
+            "title": "New",
+            "description": "Entries that were not in the pool before",
+            "default": 0
+          },
+          "available": {
+            "type": "integer",
+            "title": "Available",
+            "description": "Entries confirmed playable this run",
+            "default": 0
+          },
+          "ready": {
+            "type": "integer",
+            "title": "Ready",
+            "description": "Entries that already have a tab in the library",
+            "default": 0
+          },
+          "skipped": {
+            "type": "boolean",
+            "title": "Skipped",
+            "description": "Pool was still fresh, nothing was fetched",
+            "default": false
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Errors",
+            "description": "Endpoints that failed"
+          }
+        },
+        "type": "object",
+        "title": "PoolSummary",
+        "description": "What one :func:`build_pool` run did."
+      },
+      "ScorePart": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "title": "Index"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "note_count": {
+            "type": "integer",
+            "title": "Note Count"
+          },
+          "pitch_range": {
+            "anyOf": [
+              {
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pitch Range"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index",
+          "name",
+          "note_count"
+        ],
+        "title": "ScorePart"
+      },
+      "ScoreTabRequest": {
+        "properties": {
+          "upload_id": {
+            "type": "string",
+            "title": "Upload Id"
+          },
+          "part_index": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Part Index",
+            "default": 0
+          },
+          "tuning": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array",
+                "maxItems": 12,
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tuning"
+          },
+          "capo": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 0.0,
+            "title": "Capo",
+            "default": 0
+          },
+          "max_fret": {
+            "type": "integer",
+            "maximum": 24.0,
+            "minimum": 3.0,
+            "title": "Max Fret",
+            "default": 15
+          },
+          "out_of_range": {
+            "type": "string",
+            "enum": [
+              "raise",
+              "drop",
+              "octave_shift"
+            ],
+            "title": "Out Of Range",
+            "default": "raise"
+          },
+          "cost_profile": {
+            "type": "string",
+            "enum": [
+              "tabgen",
+              "lead",
+              "beginner"
+            ],
+            "title": "Cost Profile",
+            "description": "'tabgen' classic heuristics, 'lead' stays in position instead of jumping to open strings, 'beginner' favours open strings and low frets",
+            "default": "tabgen"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_id"
+        ],
+        "title": "ScoreTabRequest"
+      },
+      "ScoreUploadResponse": {
+        "properties": {
+          "upload_id": {
+            "type": "string",
+            "title": "Upload Id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "artist": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artist"
+          },
+          "parts": {
+            "items": {
+              "$ref": "#/components/schemas/ScorePart"
+            },
+            "type": "array",
+            "title": "Parts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_id",
+          "filename",
+          "parts"
+        ],
+        "title": "ScoreUploadResponse"
+      },
+      "Song": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "artist": {
+            "type": "string",
+            "title": "Artist"
+          },
+          "album": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Album"
+          },
+          "duration_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration S"
+          },
+          "spotify_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spotify Id"
+          },
+          "isrc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Isrc"
+          },
+          "artwork_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artwork Url"
+          },
+          "normalized_query": {
+            "type": "string",
+            "title": "Normalized Query",
+            "description": "Normalized '<artist> <title>' used for search and dedupe",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "artist"
+        ],
+        "title": "Song"
+      },
+      "SongQuery": {
+        "properties": {
+          "raw": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw"
+          },
+          "spotify_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spotify Url"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "artist": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artist"
+          }
+        },
+        "type": "object",
+        "title": "SongQuery",
+        "description": "What the user typed or pasted; at least one of the fields is expected."
+      },
+      "SpotifyStatus": {
+        "properties": {
+          "connected": {
+            "type": "boolean",
+            "title": "Connected",
+            "default": false
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "spotify_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spotify User Id"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Scopes"
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At"
+          },
+          "configured": {
+            "type": "boolean",
+            "title": "Configured",
+            "description": "A Spotify client id is set, so login is possible",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "SpotifyStatus",
+        "description": "Answer to ``GET /spotify/status``."
+      },
+      "SurprisePick": {
+        "properties": {
+          "entry": {
+            "$ref": "#/components/schemas/PoolEntry"
+          },
+          "tab_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tab Id",
+            "description": "Ready tab to open; null means the client should start a job"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason",
+            "description": "Human label for why this was picked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entry"
+        ],
+        "title": "SurprisePick",
+        "description": "A single pool entry chosen at random (score-weighted) for the Surprise me button."
+      },
+      "Tab": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "song_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Song Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "default": "Untitled"
+          },
+          "artist": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artist"
+          },
+          "source": {
+            "$ref": "#/components/schemas/TabSourceKind",
+            "default": "manual"
+          },
+          "source_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Ref"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "default": 1.0
+          },
+          "tempo_bpm": {
+            "type": "number",
+            "title": "Tempo Bpm",
+            "default": 120.0
+          },
+          "time_signature": {
+            "$ref": "#/components/schemas/TimeSignature"
+          },
+          "tracks": {
+            "items": {
+              "$ref": "#/components/schemas/Track"
+            },
+            "type": "array",
+            "title": "Tracks"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "title": "Tab"
+      },
+      "TabRequest": {
+        "properties": {
+          "song": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SongQuery"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "song_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Song Id",
+            "description": "Reuse an already resolved song (from /songs/resolve or a job)"
+          },
+          "upload_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upload Id"
+          },
+          "audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Url",
+            "description": "Exact media URL for the audio tier to download with yt-dlp, instead of searching. Ignored when upload_id is set; still requires GUITARISTA_ENABLE_YTDLP."
+          },
+          "candidate": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CandidateRef"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Fetch exactly this candidate; only its source runs and nothing is ranked"
+          },
+          "exclude": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateRef"
+            },
+            "type": "array",
+            "title": "Exclude",
+            "description": "Candidates every tier must skip before picking"
+          },
+          "tuning": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tuning"
+          },
+          "capo": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 0.0,
+            "title": "Capo",
+            "default": 0
+          },
+          "max_fret": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 24.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Fret",
+            "description": "Highest fret the solver may use (audio tier)"
+          },
+          "cost_profile": {
+            "type": "string",
+            "enum": [
+              "tabgen",
+              "lead",
+              "beginner"
+            ],
+            "title": "Cost Profile",
+            "description": "Fretting preference for the solver (audio tier): 'tabgen' classic heuristics, 'lead' stays in position instead of jumping to open strings, 'beginner' favours open strings and low frets",
+            "default": "tabgen"
+          },
+          "tiers": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "resolve",
+                    "songsterr",
+                    "ultimate_guitar",
+                    "audio"
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tiers",
+            "description": "Restrict to these tiers (default: all enabled, in order)"
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "user",
+              "noodle"
+            ],
+            "title": "Origin",
+            "description": "Who asked for this job: 'user' for an explicit request, 'noodle' for a background prefetch job started from the Spotify listening pool, so the UI can tell them apart",
+            "default": "user"
+          }
+        },
+        "type": "object",
+        "title": "TabRequest",
+        "description": "Body of ``POST /jobs``: ``song`` (link / text / title+artist), ``song_id`` (an already\nresolved song) and/or ``upload_id``. ``candidate`` fetches exactly one browsed candidate;\n``exclude`` makes every tier skip the listed candidates before picking (\"not this one, next\").\n``origin`` marks background \"noodle\" prefetch jobs (from the Spotify listening pool) so the\nUI can tell them apart from jobs the user asked for explicitly."
+      },
+      "TabSourceKind": {
+        "type": "string",
+        "enum": [
+          "songsterr",
+          "ultimate_guitar",
+          "audio",
+          "score",
+          "manual"
+        ],
+        "title": "TabSourceKind"
+      },
+      "TabSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "artist": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artist"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "song_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Song Id"
+          },
+          "track_count": {
+            "type": "integer",
+            "title": "Track Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "artist",
+          "source",
+          "confidence",
+          "created_at",
+          "track_count"
+        ],
+        "title": "TabSummary"
+      },
+      "TierLogEntry": {
+        "properties": {
+          "tier": {
+            "type": "string",
+            "enum": [
+              "resolve",
+              "songsterr",
+              "ultimate_guitar",
+              "audio"
+            ],
+            "title": "Tier"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "skipped",
+              "running",
+              "success",
+              "failed",
+              "timeout",
+              "cancelled"
+            ],
+            "title": "Status",
+            "default": "pending"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "detail": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tier"
+        ],
+        "title": "TierLogEntry"
+      },
+      "TimeSignature": {
+        "properties": {
+          "numerator": {
+            "type": "integer",
+            "title": "Numerator",
+            "default": 4
+          },
+          "denominator": {
+            "type": "integer",
+            "title": "Denominator",
+            "default": 4
+          }
+        },
+        "type": "object",
+        "title": "TimeSignature"
+      },
+      "Track": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "default": "Guitar"
+          },
+          "instrument": {
+            "type": "string",
+            "title": "Instrument",
+            "default": "acoustic_guitar_steel"
+          },
+          "tuning": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Tuning",
+            "description": "MIDI pitch of open strings, string 1..N (highest first)"
+          },
+          "capo": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Capo",
+            "default": 0
+          },
+          "measures": {
+            "items": {
+              "$ref": "#/components/schemas/Measure"
+            },
+            "type": "array",
+            "title": "Measures"
+          }
+        },
+        "type": "object",
+        "title": "Track"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Voice": {
+        "properties": {
+          "beats": {
+            "items": {
+              "$ref": "#/components/schemas/Beat"
+            },
+            "type": "array",
+            "title": "Beats"
+          }
+        },
+        "type": "object",
+        "title": "Voice"
+      }
+    }
+  }
+}
