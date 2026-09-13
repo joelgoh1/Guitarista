@@ -1,0 +1,12 @@
+{
+  "name": "@guitarista/api",
+  "private": true,
+  "scripts": {
+    "dev": "uv run uvicorn guitarista_api.main:app --reload --port 8000",
+    "export-openapi": "uv run python -m guitarista_api.export_openapi ../../packages/api-types/openapi.json",
+    "gen:api": "pnpm run export-openapi && pnpm --filter @guitarista/api-types gen:api",
+    "lint": "uv run ruff check .",
+    "typecheck": "uv run mypy src",
+    "test": "uv run pytest -q"
+  }
+}
